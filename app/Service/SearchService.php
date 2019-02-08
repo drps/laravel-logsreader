@@ -5,9 +5,9 @@ namespace App\Service;
 use App\Http\Requests\SearchRequest;
 use App\Logs;
 use App\Repository\LogsRepository;
+use Debugbar;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class SearchService
 {
@@ -43,7 +43,6 @@ class SearchService
             }
         }
         $logs = $this->repository->findLogs($sort, $type, $found->dt, $found->offset, $perPage);
-//        $logs = $query->limit($perPage)->offset($found->offset)->get();
 
         $pagination = new LengthAwarePaginator($logs, $total, $perPage, $page);
 
@@ -59,6 +58,7 @@ class SearchService
     private function findInCacheForAscOnLeft($type, int $page, int $perPage): CachedPageDto
     {
         $data = Cache::get('type_' . (int)$type, []);
+        Debugbar::info($data);
 
         // searching for nearest value
         $reversedData = array_reverse($data, true);
@@ -85,6 +85,7 @@ class SearchService
     private function findInCacheForAscOnRight($type, int $page, int $perPage, int $total): CachedPageDto
     {
         $data = Cache::get('type_' . (int)$type, []);
+        Debugbar::info($data);
 
         foreach ($data as $cachedPage => $cachedDt) {
             if ($cachedPage > $page) {
