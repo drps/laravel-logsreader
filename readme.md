@@ -35,7 +35,6 @@ Logs Reader кэширует для каждой 100 000-ой записи вр�
 
 * `select count(*) as aggregate from "logs"`
 * `select * from "logs" where "dt" <= '2019-03-18 19:17:09' order by "dt" desc limit 100 offset 7104`
-* `select * from "logs" where "dt" <= '2019-03-18 19:19:42' order by "dt" desc limit 100 offset 7104`
 
 ## Возможные трудности
 
