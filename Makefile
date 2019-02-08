@@ -5,3 +5,6 @@ init:
 	php artisan db:seed
 	php artisan paginator:cache
 
+seed:
+	php artisan db:seed
+	php artisan paginator:cache
