@@ -1,4 +1,7 @@
-perm:
-	chmod 777 -R ./bootstrap
+init:
+	composer install
 	chmod 777 -R ./storage
+	php artisan migrate
+	php artisan db:seed
+	php artisan paginator:cache
 
