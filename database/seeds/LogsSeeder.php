@@ -8,7 +8,7 @@ class LogsSeeder extends Seeder
     public function run()
     {
         $count = 0;
-        for ($j = 0; $j < 1; $j++) {
+        for ($j = 0; $j < 30; $j++) {
             for ($i = 0; $i < 10; $i++) {
                 $logs = factory(Logs::class, 10000)->make()->all();
                 $chunksize = 100;
@@ -23,8 +23,9 @@ class LogsSeeder extends Seeder
                         ];
                     }
                     Logs::insert($data);
-                    echo 'inserted ' . ($count += $chunksize) . ' rows' . PHP_EOL;
+                    $count += $chunksize;
                 }
+                echo 'inserted ' . $count . ' rows' . PHP_EOL;
             }
         }
     }
