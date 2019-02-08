@@ -1,0 +1,50 @@
+version: '3'
+services:
+    nginx:
+        build:
+            context: ./
+            dockerfile: docker/nginx.docker
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/ssl:/etc/nginx/ssl
+        ports:
+            - "8080:443"
+        depends_on:
+            - php-fpm
+    php-fpm:
+        build:
+            context: ./
+            dockerfile: docker/php-fpm.docker
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - postgres
+            - redis
+    php-cli:
+        build:
+            context: ./
+            dockerfile: docker/php-cli.docker
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - postgres
+            - redis
+        tty: true
+    postgres:
+        image: postgres:9.6-alpine
+        volumes:
+            - ./var/docker/postgres:/var/lib/postgresql/data
+        environment:
+            - "POSTGRES_USER=homestead"
+            - "POSTGRES_PASSWORD=secret"
+            - "POSTGRES_DB=homestead"
+        ports:
+            - "54321:5432"
+    redis:
+        image: redis:3.0
+    node:
+        image: node:8-alpine
+        volumes:
+            - ./:/var/www
+        working_dir: /var/www
+        tty: true
