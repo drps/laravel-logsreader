@@ -1,6 +1,6 @@
-#Logs reader
+# Logs reader
 
-###Чтобы запустить проект нужно выполнить 2 команды
+### Чтобы запустить проект нужно выполнить 2 команды
 
 * `docker-compose up -d --build`
 * `docker-compose exec php-cli make init`
