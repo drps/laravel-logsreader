@@ -227,4 +227,5 @@ return [
     ],
 
     'perpage' => 100,
+    'cache.chunkSize' => 100000,
 ];

@@ -34,7 +34,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(CachePaginator::class, function (Application $app) {
             $config = $app->make('config')->get('app');
-            return new CachePaginator($config['perpage']);
+            return new CachePaginator(
+                $config['perpage'],
+                $config['cache.chunkSize']
+            );
         });
     }
 }

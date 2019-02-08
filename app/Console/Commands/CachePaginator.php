@@ -14,11 +14,13 @@ class CachePaginator extends Command
     protected $description = 'Caches pairs datetimes => page';
 
     private $perPage;
+    private $chunkSize;
 
-    public function __construct(int $perPage)
+    public function __construct(int $perPage, int $chunkSize)
     {
         parent::__construct();
         $this->perPage = $perPage;
+        $this->chunkSize = $chunkSize;
     }
 
     public function handle()
@@ -36,7 +38,7 @@ class CachePaginator extends Command
 
     private function indexByType(int $type)
     {
-        $chunkSize = 100000;
+        $chunkSize = $this->chunkSize;
         $prevDt = '2000-01-01 00:00:00';
 
         if ($type) {
